@@ -9,7 +9,7 @@ A simple, intentional wishlist app that helps users organize, prioritize, and pl
 
 ## Class Link
 
-[Insert your class link here]
+
 
 ## Objective
 
@@ -39,7 +39,6 @@ WishWise is a web application designed to help users manage and organize items t
 
 ![WishWise Application](screenshot.png)
 
-*Note: Add a screenshot of your application here after deployment*
 
 ## Technology Stack
 
