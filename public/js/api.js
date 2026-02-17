@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = window.API_BASE_URL || '/api';
 
 export async function fetchItems(status = '', sortBy = 'priority', sortOrder = 'desc') {
   const params = new URLSearchParams();
