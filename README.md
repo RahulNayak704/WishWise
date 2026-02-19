@@ -227,7 +227,16 @@ npm run dev
 
 - Database credentials are stored in environment variables (`.env` file)
 - The `.env` file is excluded from version control via `.gitignore`
-- Never commit sensitive credentials to the repository
+
+## Use of Generative AI
+
+- This project used ChatGPT (OpenAI) as a support tool during development.
+Usage:
+- Helped with HTML/CSS layout, formatting, and styling improvements.
+- Assisted with client-side JavaScript 
+Example Prompts:
+- Help format this HTML/CSS section for better layout.
+- How do I implement client-side rendering for the wishlist items?
 
 ## License
 
