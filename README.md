@@ -10,8 +10,11 @@ Rahul Nayak, Raagini Tyagi
 **Course Website:** [Web Development (Spring 2026)](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)
 
 **Live Demo Website:** [WishWise – Live Deployment](https://wishwise.onrender.com/)
+
 **Demo Video:** [WishWise – Project Demonstration Video]()
+
 **Design Document:** [WishWise – Design Document](WishWise_Design_Document.pdf)
+
 **Project Presentation:** [WishWise – Google Slides]()
 
 
