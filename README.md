@@ -12,6 +12,7 @@ Rahul Nayak, Raagini Tyagi
 **Live Demo Website:** [WishWise – Live Deployment](https://wishwise.onrender.com/)
 **Demo Video:** [WishWise – Project Demonstration Video]()
 **Design Document:** [WishWise – Design Document]()
+**Project Presentation:** [WishWise – Google Slides]()
 
 
 ## Objective
@@ -39,9 +40,23 @@ WishWise is a web application designed to help users manage and organize items t
   - Sort order (ascending/descending)
   - On the Wishlist page, filter by category via the sidebar (All Items, Uncategorized, or a specific category)
 
-## Screenshot
+## Screenshots
 
-![WishWise Application](screenshot.png)
+| All Items (Wishlist) | Specific Category |
+|----------------------|-------------------|
+| ![Wishlist – All Items](public/assets/Screenshot_All_Items.png) | ![Wishlist – Category View](public/assets/Screenshot_Specific_Category.png) |
+
+| Add Item | Edit Item |
+|-----------|-----------|
+| ![Add Item Modal](public/assets/Screenshot_Add_Item.png) | ![Edit Item Modal](public/assets/Screenshot_Edit_Item.png) |
+
+| Add Category | Edit Category |
+|--------------|----------------|
+| ![Add Category Modal](public/assets/Screenshot_Add_Category.png) | ![Edit Category Modal](public/assets/Screenshot_Edit_Category.png) |
+
+| Manage Categories Page |
+|------------------------|
+| ![Manage Categories](public/assets/Screenshot_Manage_Categories.png) |
 
 ## Technology Stack
 
@@ -64,7 +79,8 @@ WishWise/
 ├── public/
 │   ├── index.html             # Main HTML page
 │   ├── assets/
-│   │   └── favicon.ico        # App favicon
+│   │   ├── favicon.ico        # App favicon
+│   │   └── Screenshot_*.png   # Application screenshots
 │   ├── css/
 │   │   ├── reset.css         # CSS reset
 │   │   ├── layout.css        # Layout styles
@@ -80,8 +96,12 @@ WishWise/
 │       └── categories.js      # Categories management module
 ├── server.js                  # Express server
 ├── package.json               # Dependencies and scripts
+├── package-lock.json          # Dependency lock file
 ├── .eslintrc.json            # ESLint configuration
 ├── .prettierrc               # Prettier configuration
+├── .gitignore                # Git ignore rules
+├── WishWise_Design_Document.pdf  # Project design document
+├── IMPLEMENTATION_AUDIT.md    # Implementation rubric audit
 └── README.md                  # This file
 ```
 
