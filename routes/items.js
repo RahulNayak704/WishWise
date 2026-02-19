@@ -21,6 +21,11 @@ router.get('/', async (req, res) => {
       sortOptions.priority = sortOrder === 'desc' ? -1 : 1;
     } else if (sortBy === 'title') {
       sortOptions.title = sortOrder === 'asc' ? 1 : -1;
+    } else if (sortBy === 'price') {
+      sortOptions.price = sortOrder === 'desc' ? -1 : 1;
+      sortOptions._id = 1;
+    } else if (sortBy === 'date') {
+      sortOptions.createdAt = sortOrder === 'desc' ? -1 : 1;
     }
 
     const items = await collection.find(query).sort(sortOptions).toArray();

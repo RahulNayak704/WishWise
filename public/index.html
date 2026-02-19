@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WishWise - Your Intentional Wishlist</title>
+    <meta name="author" content="Rahul Nayak, Raagini Tyagi" />
+    <meta name="description" content="A simple, intentional wishlist app that helps users organize, prioritize, and plan future purchases." />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/header.css" />
@@ -15,87 +18,121 @@
   <body>
     <header class="header">
       <div class="header-content">
-        <h1 class="header-title">WishWise</h1>
-        <p class="header-subtitle">Organize, prioritize, and plan your future purchases</p>
+        <div class="header-brand">
+          <h1 class="header-title">WishWise</h1>
+          <p class="header-subtitle">Organize, prioritize, and plan your future purchases</p>
+        </div>
+        <nav class="header-nav">
+          <a href="#" class="nav-link active" data-page="wishlist">Wishlist</a>
+          <a href="#" class="nav-link" data-page="categories">Manage Categories</a>
+        </nav>
+        <button type="button" id="headerAddItemBtn" class="button button-primary header-add-item">
+          Add Item
+        </button>
       </div>
     </header>
 
     <main class="main-content">
-      <div class="controls-section">
-        <div class="filter-controls">
-          <label for="statusFilter">Filter by Status:</label>
-          <select id="statusFilter" class="filter-select">
-            <option value="">All Statuses</option>
-            <option value="considering">Considering</option>
-            <option value="want">Want</option>
-            <option value="bought">Bought</option>
-            <option value="archived">Archived</option>
-          </select>
-
-          <label for="sortBy">Sort by:</label>
-          <select id="sortBy" class="filter-select">
-            <option value="priority">Priority</option>
-            <option value="title">Title</option>
-          </select>
-
-          <label for="sortOrder">Order:</label>
-          <select id="sortOrder" class="filter-select">
-            <option value="desc">High to Low</option>
-            <option value="asc">Low to High</option>
-          </select>
-
-          <button type="button" id="addItemBtn" class="button button-primary">
-            Add Item
-          </button>
+      <!-- Wishlist page (default) -->
+      <div id="wishlist-page" class="page active">
+        <div class="wishlist-layout">
+          <aside class="wishlist-sidebar">
+            <button type="button" id="sidebarAddCategoryBtn" class="button button-secondary sidebar-btn">
+              Add Category
+            </button>
+            <div class="sidebar-section">
+              <div class="sidebar-label">View</div>
+              <button type="button" class="sidebar-filter active" data-filter="all">
+                <span class="sidebar-category-name">All Items</span>
+                <span class="sidebar-category-count">0</span>
+              </button>
+              <button type="button" class="sidebar-filter" data-filter="uncategorized">
+                <span class="sidebar-category-name">Uncategorized</span>
+                <span class="sidebar-category-count">0</span>
+              </button>
+            </div>
+            <div class="sidebar-section">
+              <div class="sidebar-label">Categories</div>
+              <div id="sidebarCategoriesList" class="sidebar-categories-list"></div>
+            </div>
+          </aside>
+          <div class="wishlist-main">
+            <div class="controls-section">
+              <div class="filter-controls">
+                <label for="statusFilter">Filter by Status:</label>
+                <select id="statusFilter" class="filter-select">
+                  <option value="">All Statuses</option>
+                  <option value="considering">Considering</option>
+                  <option value="want">Want</option>
+                  <option value="bought">Bought</option>
+                  <option value="archived">Archived</option>
+                </select>
+                <label for="sortBy">Sort by:</label>
+                <select id="sortBy" class="filter-select">
+                  <option value="priority">Priority</option>
+                  <option value="title">Title</option>
+                  <option value="price">Price</option>
+                  <option value="date">Date Added</option>
+                </select>
+                <label for="sortOrder">Order:</label>
+                <select id="sortOrder" class="filter-select">
+                  <option value="desc">High to Low</option>
+                  <option value="asc">Low to High</option>
+                </select>
+              </div>
+            </div>
+            <section class="items-section">
+              <div class="section-header">
+                <div class="section-title-wrap">
+                  <h2 id="itemsSectionTitle">Wishlist Items</h2>
+                  <p id="itemsSectionDescription" class="items-section-description" aria-hidden="true"></p>
+                </div>
+                <p class="item-count" id="itemCount">0 items</p>
+              </div>
+              <div id="itemsContainer" class="items-container"></div>
+            </section>
+          </div>
         </div>
       </div>
 
-      <div class="content-grid">
-        <section class="items-section">
+      <!-- Manage Categories page -->
+      <div id="categories-page" class="page">
+        <div class="categories-page-content">
           <div class="section-header">
-            <h2>Wishlist Items</h2>
-            <p class="item-count" id="itemCount">0 items</p>
-          </div>
-          <div id="itemsContainer" class="items-container"></div>
-        </section>
-
-        <aside class="categories-section">
-          <div class="section-header">
-            <h2>Categories</h2>
-            <button type="button" id="addCategoryBtn" class="button button-secondary">
+            <h2>Manage Categories</h2>
+            <button type="button" id="categoriesPageAddCategoryBtn" class="button button-primary">
               Add Category
             </button>
           </div>
           <div id="categoriesContainer" class="categories-container"></div>
-        </aside>
+        </div>
       </div>
     </main>
 
     <div id="itemModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 id="itemModalTitle">Add Wishlist Item</h2>
+          <h2 id="itemModalTitle">Add New Item</h2>
           <button type="button" class="modal-close" id="closeItemModal">&times;</button>
         </div>
         <form id="itemForm" class="form">
           <div class="form-group">
             <label for="itemTitle">Title *</label>
-            <input type="text" id="itemTitle" name="title" required />
+            <input type="text" id="itemTitle" name="title" required placeholder="e.g., MacBook Pro, Bali Trip, Espresso Machine" />
           </div>
 
           <div class="form-group">
             <label for="itemLink">Link (optional)</label>
-            <input type="url" id="itemLink" name="link" />
+            <input type="url" id="itemLink" name="link" placeholder="https://..." />
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="itemPrice">Price (optional)</label>
-              <input type="number" id="itemPrice" name="price" step="0.01" min="0" />
+              <input type="number" id="itemPrice" name="price" step="0.01" min="0" placeholder="0.00" />
             </div>
-
             <div class="form-group">
-              <label for="itemPriority">Priority *</label>
+              <label for="itemPriority">Priority</label>
               <select id="itemPriority" name="priority" required>
                 <option value="5">5 - Highest</option>
                 <option value="4">4 - High</option>
@@ -104,9 +141,11 @@
                 <option value="1">1 - Lowest</option>
               </select>
             </div>
+          </div>
 
+          <div class="form-row">
             <div class="form-group">
-              <label for="itemStatus">Status *</label>
+              <label for="itemStatus">Status</label>
               <select id="itemStatus" name="status" required>
                 <option value="considering" selected>Considering</option>
                 <option value="want">Want</option>
@@ -114,25 +153,24 @@
                 <option value="archived">Archived</option>
               </select>
             </div>
-          </div>
-
-          <div class="form-group">
-            <label for="itemCategory">Category (optional)</label>
-            <select id="itemCategory" name="categoryId">
-              <option value="">Uncategorized</option>
-            </select>
+            <div class="form-group">
+              <label for="itemCategory">Category</label>
+              <select id="itemCategory" name="categoryId">
+                <option value="">Uncategorized</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-group">
             <label for="itemNotes">Notes (optional)</label>
-            <textarea id="itemNotes" name="notes" rows="3"></textarea>
+            <textarea id="itemNotes" name="notes" rows="3" placeholder="Add any additional details or thoughts..."></textarea>
           </div>
 
           <div class="form-actions">
+            <button type="submit" class="button button-primary" id="itemSubmitBtn">Add Item</button>
             <button type="button" class="button button-secondary" id="cancelItemBtn">
               Cancel
             </button>
-            <button type="submit" class="button button-primary">Save Item</button>
           </div>
         </form>
       </div>
@@ -164,6 +202,8 @@
         </form>
       </div>
     </div>
+
+    <button type="button" id="scrollToTop" class="scroll-to-top">↑ Top</button>
 
     <script>
       window.API_BASE_URL = '/api';
