@@ -7,7 +7,12 @@ Rahul Nayak, Raagini Tyagi
 **Course:** CS5610 – Web Development  
 **Semester:** Spring 2026  
 **Instructor:** John Guerra  
-**Course Website:** https://johnguerra.co/classes/webDevelopment_online_spring_2026/
+**Course Website:** [Web Development (Spring 2026)](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)
+
+**Live Demo Website:** [WishWise – Live Deployment](https://wishwise.onrender.com/)
+**Demo Video:** [WishWise – Project Demonstration Video]()
+**Design Document:** [WishWise – Design Document]()
+
 
 ## Objective
 
@@ -28,10 +33,11 @@ WishWise is a web application designed to help users manage and organize items t
   - Categories are independent of items
   - When a category is deleted, items become uncategorized (not deleted)
 
-- **Filtering & Sorting**: 
-  - Filter items by status
-  - Sort items by priority or title
+- **Filtering & Sorting**:
+  - Filter items by status (considering, want, bought, archived)
+  - Sort items by priority, title, price, or date added
   - Sort order (ascending/descending)
+  - On the Wishlist page, filter by category via the sidebar (All Items, Uncategorized, or a specific category)
 
 ## Screenshot
 
@@ -57,6 +63,8 @@ WishWise/
 │   └── seed.js                # Database seeding script
 ├── public/
 │   ├── index.html             # Main HTML page
+│   ├── assets/
+│   │   └── favicon.ico        # App favicon
 │   ├── css/
 │   │   ├── reset.css         # CSS reset
 │   │   ├── layout.css        # Layout styles
@@ -141,9 +149,15 @@ npm run dev
 
 ## Usage Instructions
 
+### Navigation
+
+- **Wishlist** (default): View and manage wishlist items. The left sidebar lets you filter by "All Items", "Uncategorized", or any category. Each option shows the number of items.
+- **Manage Categories**: Switch via the header link to create, edit, and delete categories. Categories are listed in alphabetical order.
+- **Add Item**: Use the "Add Item" button in the top-right of the header to open the add/edit item modal from anywhere.
+
 ### Adding Items
 
-1. Click the "Add Item" button
+1. Click the "Add Item" button (header, top-right)
 2. Fill in the required fields:
    - **Title**: Name of the item you want
    - **Priority**: Select a priority level (1-5, where 5 is highest)
@@ -153,28 +167,27 @@ npm run dev
    - Price
    - Category (select from existing categories or leave uncategorized)
    - Notes
-4. Click "Save Item"
+4. Click **"Add Item"** (or **"Save Item"** when editing) 
 
-### Managing Items
+### Managing Items (Wishlist page)
 
-- **Filter**: Use the status filter dropdown to show items by status
-- **Sort**: Choose to sort by priority or title, and select sort order
-- **Edit**: Click the "Edit" button on any item card to modify it
-- **Delete**: Click the "Delete" button to remove an item
+- **Filter by category**: Use the left sidebar—click "All Items", "Uncategorized", or a category name to show only those items.
+- **Filter by status**: Use the "Filter by Status" dropdown above the list.
+- **Sort**: Choose "Sort by" (priority, title, price, or date added) and "Order" (high to low / low to high).
+- **Item cards**: Each item shows name, status, category (if set), link, price, notes, and priority (fire emojis). Use **Edit** to change it, **Archive** to set status to archived, or **Delete** to remove it.
 
-### Managing Categories
+### Managing Categories (Manage Categories page)
 
-1. Click "Add Category" in the categories sidebar
-2. Enter a category name (required) and optional description
-3. Click "Save Category"
-4. Edit or delete categories using the buttons on each category card
-5. **Note**: Deleting a category will make all items in that category uncategorized (items are not deleted)
+1. Go to **Manage Categories** in the header.
+2. Click **"Add Category"** to create one (name required, description optional).
+3. Edit or delete categories using the buttons on each card.
+4. **Note**: Deleting a category does not delete items; those items become uncategorized.
 
 ## API Endpoints
 
 ### Items
 
-- `GET /api/items` - Get all items (with optional query params: status, sortBy, sortOrder)
+- `GET /api/items` - Get all items (optional query params: status, sortBy, sortOrder; sortBy can be priority, title, price, date)
 - `GET /api/items/:id` - Get a single item
 - `POST /api/items` - Create a new item
 - `PUT /api/items/:id` - Update an item
