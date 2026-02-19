@@ -9,7 +9,11 @@ router.get('/', async (req, res) => {
     const db = getDatabase();
     const collection = db.collection('categories');
 
-    const categories = await collection.find({}).sort({ name: 1 }).toArray();
+    const categories = await collection
+      .find({})
+      .sort({ name: 1 })
+      .collation({ locale: 'en', strength: 2 })
+      .toArray();
     res.json(categories);
   } catch (error) {
     console.error('Error fetching categories:', error);

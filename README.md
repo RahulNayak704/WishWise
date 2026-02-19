@@ -2,14 +2,12 @@
 
 A simple, intentional wishlist app that helps users organize, prioritize, and plan future purchases.
 
-## Authors
-
-- Rahul Nayak
-- Raagini Tyagi
-
-## Class Link
-
-[Insert your class link here]
+**Authors:**
+Rahul Nayak, Raagini Tyagi  
+**Course:** CS5610 – Web Development  
+**Semester:** Spring 2026  
+**Instructor:** John Guerra  
+**Course Website:** https://johnguerra.co/classes/webDevelopment_online_spring_2026/
 
 ## Objective
 
