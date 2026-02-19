@@ -76,6 +76,17 @@
   background: #218838;
 }
 
+.button-archive {
+  background: #6c757d;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.button-archive:hover {
+  background: #5a6268;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -101,6 +112,10 @@
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
+}
+
+.form-group textarea {
+  resize: none;
 }
 
 .form-group input:focus,

@@ -3,9 +3,15 @@ import { loadItems } from './items.js';
 
 let currentEditingCategoryId = null;
 
+function sortCategoriesByName(categories) { // sort categories by name in alphabetical order
+  return [...categories].sort((a, b) =>
+    (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' })
+  );
+}
+
 export async function renderCategories() {
   try {
-    const categories = await api.fetchCategories();
+    const categories = sortCategoriesByName(await api.fetchCategories());
     const container = document.getElementById('categoriesContainer');
 
     if (categories.length === 0) {
