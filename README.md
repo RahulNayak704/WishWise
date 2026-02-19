@@ -15,7 +15,7 @@ Rahul Nayak, Raagini Tyagi
 
 **Design Document:** [WishWise – Design Document](WishWise_Design_Document.pdf)
 
-**Project Presentation:** [WishWise – Google Slides]()
+**Project Presentation:** [WishWise – Google Slides](https://docs.google.com/presentation/d/1zwJTgryEktPdYGASGevGt3X1SZlHGntwIFL7k7xoGeg/edit?usp=sharing)
 
 
 ## Objective
