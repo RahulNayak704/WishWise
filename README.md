@@ -11,7 +11,7 @@ Rahul Nayak, Raagini Tyagi
 
 **Live Demo Website:** [WishWise – Live Deployment](https://wishwise.onrender.com/)
 
-**Demo Video:** [WishWise – Project Demonstration Video](https://drive.google.com/file/d/1tb5u5zcA0rD13BKPhyqhgviwzjsSUWY6/view?usp=sharing)
+**Demo Video:** [WishWise – Project Demonstration Video](https://drive.google.com/file/d/1TpzvLc1H_f2lVNhqkI_wf7St2-rvH5Sd/view?usp=drive_link)
 
 **Design Document:** [WishWise – Design Document](WishWise_Design_Document.pdf)
 
