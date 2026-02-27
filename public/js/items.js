@@ -49,23 +49,35 @@ export function renderSidebarCategories(categories, allItems = []) {
   const list = document.getElementById('sidebarCategoriesList');
   if (!list) return;
 
-  if (categories.length === 0) {
-    list.innerHTML = '<span class="sidebar-empty">No categories yet</span>';
+  list.replaceChildren();
+
+  if (!categories?.length) {
+    const empty = document.createElement('span');
+    empty.className = 'sidebar-empty';
+    empty.textContent = 'No categories yet';
+    list.appendChild(empty);
     return;
   }
 
-  const sorted = sortCategoriesByName(categories);
-  list.innerHTML = sorted
-    .map((cat) => {
-      const count = allItems.filter((i) => i.categoryId === cat._id).length;
-      return `
-        <button type="button" class="sidebar-category" data-filter="${cat._id}">
-          <span class="sidebar-category-name">${cat.name}</span>
-          <span class="sidebar-category-count">${count}</span>
-        </button>
-      `;
-    })
-    .join('');
+  sortCategoriesByName(categories).forEach((cat) => {
+    const count = allItems.filter((i) => i.categoryId === cat._id).length;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sidebar-category';
+    btn.dataset.filter = cat._id;
+
+    const name = document.createElement('span');
+    name.className = 'sidebar-category-name';
+    name.textContent = cat.name ?? '';
+
+    const countEl = document.createElement('span');
+    countEl.className = 'sidebar-category-count';
+    countEl.textContent = String(count);
+
+    btn.append(name, countEl);
+    list.appendChild(btn);
+  });
 }
 
 function updateItemsSectionHeader(categories) {
