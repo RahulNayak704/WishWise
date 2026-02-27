@@ -4,6 +4,10 @@ import { getDatabase } from '../database/connection.js';
 
 const router = express.Router();
 
+function parseObjectId(id) {
+  return ObjectId.isValid(id) ? new ObjectId(id) : null;
+}
+
 router.get('/', async (req, res) => {
   try {
     const db = getDatabase();
@@ -11,10 +15,8 @@ router.get('/', async (req, res) => {
 
     const { status, sortBy = 'priority', sortOrder = 'desc' } = req.query;
 
-    let query = {};
-    if (status) {
-      query.status = status;
-    }
+    const query = {};
+    if (status) query.status = status;
 
     const sortOptions = {};
     if (sortBy === 'priority') {
@@ -41,9 +43,12 @@ router.get('/:id', async (req, res) => {
     const db = getDatabase();
     const collection = db.collection('items');
 
-    const item = await collection.findOne({
-      _id: new ObjectId(req.params.id),
-    });
+    const _id = parseObjectId(req.params.id);
+    if (!_id) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const item = await collection.findOne({ _id });
 
     if (!item) {
       return res.status(404).json({ error: 'Item not found' });
@@ -61,8 +66,7 @@ router.post('/', async (req, res) => {
     const db = getDatabase();
     const collection = db.collection('items');
 
-    const { title, link, price, priority, status, categoryId, notes } =
-      req.body;
+    const { title, link, price, priority, status, categoryId, notes } = req.body;
 
     if (!title || !priority || !status) {
       return res
@@ -85,7 +89,7 @@ router.post('/', async (req, res) => {
       title,
       link: link || null,
       price: price ? parseFloat(price) : null,
-      priority: parseInt(priority),
+      priority: parseInt(priority, 10),
       status,
       categoryId: categoryId || null,
       notes: notes || null,
@@ -108,8 +112,12 @@ router.put('/:id', async (req, res) => {
     const db = getDatabase();
     const collection = db.collection('items');
 
-    const { title, link, price, priority, status, categoryId, notes } =
-      req.body;
+    const _id = parseObjectId(req.params.id);
+    if (!_id) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const { title, link, price, priority, status, categoryId, notes } = req.body;
 
     const updateData = {
       updatedAt: new Date(),
@@ -117,16 +125,17 @@ router.put('/:id', async (req, res) => {
 
     if (title !== undefined) updateData.title = title;
     if (link !== undefined) updateData.link = link || null;
-    if (price !== undefined)
-      updateData.price = price ? parseFloat(price) : null;
+    if (price !== undefined) updateData.price = price ? parseFloat(price) : null;
+
     if (priority !== undefined) {
       if (priority < 1 || priority > 5) {
         return res
           .status(400)
           .json({ error: 'Priority must be between 1 and 5' });
       }
-      updateData.priority = parseInt(priority);
+      updateData.priority = parseInt(priority, 10);
     }
+
     if (status !== undefined) {
       const validStatuses = ['considering', 'want', 'bought', 'archived'];
       if (!validStatuses.includes(status)) {
@@ -134,22 +143,17 @@ router.put('/:id', async (req, res) => {
       }
       updateData.status = status;
     }
+
     if (categoryId !== undefined) updateData.categoryId = categoryId || null;
     if (notes !== undefined) updateData.notes = notes || null;
 
-    const result = await collection.updateOne(
-      { _id: new ObjectId(req.params.id) },
-      { $set: updateData }
-    );
+    const result = await collection.updateOne({ _id }, { $set: updateData });
 
     if (result.matchedCount === 0) {
       return res.status(404).json({ error: 'Item not found' });
     }
 
-    const updatedItem = await collection.findOne({
-      _id: new ObjectId(req.params.id),
-    });
-
+    const updatedItem = await collection.findOne({ _id });
     res.json(updatedItem);
   } catch (error) {
     console.error('Error updating item:', error);
@@ -162,9 +166,12 @@ router.delete('/:id', async (req, res) => {
     const db = getDatabase();
     const collection = db.collection('items');
 
-    const result = await collection.deleteOne({
-      _id: new ObjectId(req.params.id),
-    });
+    const _id = parseObjectId(req.params.id);
+    if (!_id) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const result = await collection.deleteOne({ _id });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ error: 'Item not found' });
