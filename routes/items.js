@@ -157,7 +157,10 @@ router.put('/:id', async (req, res) => {
     res.json(updatedItem);
   } catch (error) {
     console.error('Error updating item:', error);
-    res.status(500).json({ error: 'Failed to update item' });
+    res.status(500).json({ 
+      error: 'Failed to fetch items',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined 
+    });
   }
 });
 
@@ -180,7 +183,10 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Item deleted successfully' });
   } catch (error) {
     console.error('Error deleting item:', error);
-    res.status(500).json({ error: 'Failed to delete item' });
+    res.status(500).json({ 
+      error: 'Failed to fetch items',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined 
+    });
   }
 });
 
